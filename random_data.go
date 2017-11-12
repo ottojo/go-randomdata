@@ -77,14 +77,22 @@ func seedAndReturnRandom(n int) int {
 	return rand.Intn(n)
 }
 
+func returnRandom(n int) int{
+	return rand.Intn(n)
+}
+
 func seedAndReturnRandomFloat() float64 {
 	rand.Seed(time.Now().UnixNano())
 	return rand.Float64()
 }
 
+func returnRandomFloat() float64 {
+	return rand.Float64()
+}
+
 // Returns a random part of a slice
 func randomFrom(source []string) string {
-	return source[seedAndReturnRandom(len(source))]
+	return source[returnRandom(len(source))]
 }
 
 // Returns a random title, gender decides the gender of the name
@@ -199,12 +207,11 @@ func Paragraph() string {
 // if a second argument is supplied it returns a number between (and including) the two numbers
 func Number(numberRange ...int) int {
 	nr := 0
-	rand.Seed(time.Now().UnixNano())
 	if len(numberRange) > 1 {
 		nr = 1
-		nr = seedAndReturnRandom(numberRange[1]-numberRange[0]) + numberRange[0]
+		nr = returnRandom(numberRange[1]-numberRange[0]) + numberRange[0]
 	} else {
-		nr = seedAndReturnRandom(numberRange[0])
+		nr = returnRandom(numberRange[0])
 	}
 	return nr
 }
@@ -214,9 +221,9 @@ func Decimal(numberRange ...int) float64 {
 	rand.Seed(time.Now().UnixNano())
 	if len(numberRange) > 1 {
 		nr = 1.0
-		nr = seedAndReturnRandomFloat()*(float64(numberRange[1])-float64(numberRange[0])) + float64(numberRange[0])
+		nr = returnRandomFloat()*(float64(numberRange[1])-float64(numberRange[0])) + float64(numberRange[0])
 	} else {
-		nr = seedAndReturnRandomFloat() * float64(numberRange[0])
+		nr = returnRandomFloat() * float64(numberRange[0])
 	}
 
 	if len(numberRange) > 2 {
@@ -257,7 +264,7 @@ func StringSample(stringList ...string) string {
 }
 
 func Boolean() bool {
-	nr := seedAndReturnRandom(2)
+	nr := returnRandom(2)
 	return nr != 0
 }
 
@@ -292,7 +299,7 @@ func SillyName() string {
 func IpV4Address() string {
 	blocks := []string{}
 	for i := 0; i < 4; i++ {
-		number := seedAndReturnRandom(255)
+		number := returnRandom(255)
 		blocks = append(blocks, strconv.Itoa(number))
 	}
 
@@ -303,7 +310,7 @@ func IpV4Address() string {
 func IpV6Address() string {
 	var ip net.IP
 	for i := 0; i < net.IPv6len; i++ {
-		number := uint8(seedAndReturnRandom(255))
+		number := uint8(returnRandom(255))
 		ip = append(ip, number)
 	}
 	return ip.String()
@@ -313,7 +320,7 @@ func IpV6Address() string {
 func MacAddress() string {
 	blocks := []string{}
 	for i := 0; i < 6; i++ {
-		number := fmt.Sprintf("%02x", seedAndReturnRandom(255))
+		number := fmt.Sprintf("%02x", returnRandom(255))
 		blocks = append(blocks, number)
 	}
 
